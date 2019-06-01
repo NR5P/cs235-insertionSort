@@ -164,6 +164,16 @@ std::ostream &operator<<(std::ostream &out, const Node<T> *pHead)
         return out;    
 }
 
+template<typename T>
+void freeData(Node<T> *pHead)
+{
+    Node <T> *pNext;
+    for (Node<T> *p = pHead; p; p = pNext) {
+        pNext = p->pNext;
+        delete p;
+    }
+    pHead = nullptr;
+}
 
 #endif
 
