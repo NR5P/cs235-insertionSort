@@ -125,6 +125,29 @@ Node<T> *findSorted(Node<T> *pHead, const T &t)
     return pHead;
 }
 
+template<typename T>
+Node<T> *insertSorted(Node<T> *pHead, const T &t)
+{
+    try {
+        // allocate a new node
+        Node<T> *pNew = new Node<T>(t);
+    } catch {
+        throw "ERROR: Unable to allocate a new Node";
+    }
+
+    // find location in linked list immediately before
+    // new node to be inserted
+    Node<T> *pFind = findSorted(pHead, t);
+
+    // insert the new node to the head of the list
+    if (pFind == nullptr) {
+        insert(pHead, pNew);
+    } else {
+        // otherwide insert the new node after the found one
+        insert(pFind, pNew, true);
+    }
+}
+
 
 template<typename T>
 Node<T> *getNode(T &data)
