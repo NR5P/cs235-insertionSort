@@ -43,15 +43,23 @@ Node<T> *remove(Node<T> *pRemove)
         return nullptr;
 
     // update the pointers in pRemove->pPrev and pRemove->pNext
+    if (pRemove->pNext) {
+        pRemove->pNext->pPrev = pRemove->pPrev;
+    }
 
+    if (pRemove->pPrev) {
+        pRemove->pPrev->pNext = pRemove->pNext;
+    }
 
     // determine which node we will return
-
+    pReturn = pRemove->pPrev ? pRemove->pPrev : pRemove->pNext;
 
     // now delete the node and return
     delete pRemove;
     return pReturn;
 }
+
+
 
 
 template<typename T>
