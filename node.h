@@ -25,17 +25,15 @@ Node<T> *copy(const Node<T> *pHead)
     if (pHead == nullptr)
         return nullptr;
     
-    try {
-        Node<T> *pNewNode = new Node<T>(pHead -> data);
-        while (pHead->pNext) {
-            pNewNode = insert(pNewNode, pHead->data, true);
-            pNewNode = pNewNode->pNext;
-            pHead = pHead->pNext;
-        }
-    } catch(std::bad_alloc) {
+    Node<T> *pNewNode = new (nothrow) Node<T>(pHead -> data);
+    if (pNewNode == nullptr)
         throw "ERROR: Unable to allocate a new Node";
+    while (pHead->pNext) {
+        pNewNode = insert(pNewNode, pHead->data, true);
+        pNewNode = pNewNode->pNext;
+        pHead = pHead->pNext;
     }
-
+    return pNewNode;
 }
 
 template<typename T>
