@@ -110,6 +110,21 @@ Node<T> *find(Node<T> *pHead, const T &t)
     return nullptr;
 }
 
+template<typename T>
+Node<T> *findSorted(Node<T> *pHead, const T &t)
+{
+    //trivial case
+    if (nullptr == pHead || t < pHead->data)
+        return nullptr;
+
+    // search for node
+    while (pHead->data < t) {
+        pHead = pHead->pNext;
+    }
+
+    return pHead;
+}
+
 
 template<typename T>
 Node<T> *getNode(T &data)
