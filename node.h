@@ -81,11 +81,9 @@ Node <T>* insert(Node <T> * pCurrent, const T & t, bool after = false) throw (co
 
 
       // If it's empty
-      if (NULL == pCurrent)
+      if (pCurrent == NULL)
       {
-         pCurrent = pNew;
          return pNew;
-
       }
 
       // Adds to before
