@@ -81,32 +81,35 @@ Node <T>* insert(Node <T> * pCurrent, const T & t, bool after = false) throw (co
 
 
       // If it's empty
-      if (pCurrent == NULL)
-      {
-         return pNew;
-      }
-
+     
       // Adds to before
-      if (!after)
+      if (pCurrent != NULL && !after)
       {
          pNew->pNext = pCurrent;
          pNew->pPrev = pCurrent->pPrev;
-         if (pNew->pNext)
-            pNew->pNext->pPrev = pNew;
+         pCurrent->pPrev = pNew;
+         if (pNew->pPrev)
+            pNew->pPrev->pNext = pNew;
          pCurrent = pNew;
          return pCurrent;
       }
 
       //adds after
-      pNew->pNext = pCurrent->pNext;
-      pNew->pPrev = pCurrent;
-      pCurrent->pNext = pNew;
-      if (pNew->pNext)
+      if (pCurrent != NULL && after)
       {
-         pCurrent->pPrev->pNext = pNew;
-      }         
+         pNew->pNext = pCurrent->pNext;
+         pNew->pPrev = pCurrent;
 
-      pCurrent->pPrev = pNew;
+         if (pCurrent->pNext)
+         {
+            pCurrent->pNext->pPrev = pNew;
+         }
+
+         pCurrent->pNext = pNew;
+
+         return pNew;
+      }
+      
       return pNew;
    }
    catch (const char* error)
