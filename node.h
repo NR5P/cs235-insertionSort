@@ -32,10 +32,10 @@ Node<T> *copy(const Node<T> *pHead)
         throw "ERROR: Unable to allocate a new Node";
     while (pHead->pNext != nullptr) {
         howManyTimesMoved++;
-        //pNewNode = insert(pNewNode, pHead->data, true);
-        pNewNode->pNext = new Node<T>(pHead->data);
-        //pNewNode->data = pHead->data;
+        pNewNode->pNext = new Node<T>(pHead->pNext->data);
         pNewNode->pNext->pPrev = pNewNode;
+
+        // go to the next one
         pNewNode = pNewNode->pNext;
         pHead = pHead->pNext;
     }
