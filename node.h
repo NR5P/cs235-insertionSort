@@ -24,16 +24,16 @@ Node<T> *copy(const Node<T> *pHead)
         return nullptr;
     
     try {
-        Node<T> *pNewNode = new Node(pHead -> data);
+        Node<T> *pNewNode = new Node<T>(pHead -> data);
+        while (pHead->pNext) {
+            pNewNode = insert(pNewNode, pHead->data, true);
+            pNewNode = pNewNode->pNext;
+            pHead = pHead->pNext;
+        }
     } catch(std::bad_alloc) {
         throw "ERROR: Unable to allocate a new Node";
     }
 
-    while (pHead->pNext) {
-        pNewNode = insert(pNewNode, pHead->data, true);
-        pNewNode = pNewNode->pNext;
-        pHead = pHead->pNext;
-    }
 }
 
 template<typename T>
@@ -41,6 +41,10 @@ Node<T> *remove(Node<T> *pRemove)
 {
     if (pRemove == nullptr)
         return nullptr;
+
+    Node<T> *pReturn = new (std::nothrow) Node<T>();
+    if (pReturn == nullptr)
+        throw "ERROR: Unable to allocate a new Node";
 
     // update the pointers in pRemove->pPrev and pRemove->pNext
     if (pRemove->pNext) {
@@ -62,11 +66,9 @@ Node<T> *remove(Node<T> *pRemove)
 template<typename T>
 Node<T> *insert(Node<T> *pCurrent, const T &t, bool after = false)
 {
-    try {
-        Node<T> *pNewNode = new Node(pHead -> data);
-    } catch (std::bad_alloc) {
+    Node<T> *pNewNode = new (std::nothrow) Node<T>(pCurrent->data);
+    if (pNewNode == nullptr)
         throw "ERROR: Unable to allocate a new Node";
-    }
 
     if (pCurrent->pPrev && !after) {
         // make new nodes previous the insert before nodes previous
@@ -128,12 +130,9 @@ Node<T> *findSorted(Node<T> *pHead, const T &t)
 template<typename T>
 Node<T> *insertSorted(Node<T> *pHead, const T &t)
 {
-    try {
-        // allocate a new node
-        Node<T> *pNew = new Node<T>(t);
-    } catch {
+    Node<T> *pNew = new (std::nothrow) Node<T>(t);
+    if (pNew == nullptr)
         throw "ERROR: Unable to allocate a new Node";
-    }
 
     // find location in linked list immediately before
     // new node to be inserted
@@ -155,7 +154,7 @@ std::ostream &operator<<(std::ostream &out, const Node<T> *pHead)
         return out;
 
     // display data
-    cout << pHead->data;
+    std::cout << pHead->data;
 
     // if there is something after us, display it
     if (pHead->pNext)
