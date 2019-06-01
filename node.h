@@ -15,6 +15,8 @@ struct Node
 
     // non default constructor
     Node(T &t) : data(t), pNext(nullptr), pPrev(nullptr) {} 
+
+    Node(const T &t) : data(t), pNext(nullptr), pPrev(nullptr) {} 
 };
 
 template<typename T>
@@ -128,7 +130,7 @@ Node<T> *findSorted(Node<T> *pHead, const T &t)
 }
 
 template<typename T>
-Node<T> *insertSorted(Node<T> *pHead, const T &t)
+Node<T> *insertSorted(Node<T> *&pHead, const T &t)
 {
     Node<T> *pNew = new (std::nothrow) Node<T>(t);
     if (pNew == nullptr)
@@ -164,7 +166,7 @@ std::ostream &operator<<(std::ostream &out, const Node<T> *pHead)
 }
 
 template<typename T>
-void freeData(Node<T> *pHead)
+void freeData(Node<T> *&pHead)
 {
     Node <T> *pNext;
     for (Node<T> *p = pHead; p; p = pNext) {
