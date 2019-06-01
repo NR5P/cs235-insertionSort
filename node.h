@@ -89,7 +89,7 @@ Node <T>* insert(Node <T>* pCurrent, const T& t, bool after = false) throw (cons
       }
 
       // Adds to head
-      if (NULL != pCurrent && after)
+      if (NULL != pCurrent && !after)
       {
          pNew->pNext = pCurrent;
          if (pNew->pNext)
@@ -100,7 +100,7 @@ Node <T>* insert(Node <T>* pCurrent, const T& t, bool after = false) throw (cons
 
 
       // Adds to back
-      if (NULL != pCurrent && !after)
+      if (NULL != pCurrent && after)
       {
          pNew->pNext = pCurrent->pNext;
          pNew->pPrev = pCurrent;
