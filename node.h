@@ -27,7 +27,7 @@ Node<T> *copy(const Node<T> *pHead)
     
     int howManyTimesMoved = 0;
 
-    Node<T> *pNewNode = new (nothrow) Node<T>(pHead -> data);
+    Node<T> *pNewNode = new (std::nothrow) Node<T>(pHead -> data);
     if (pNewNode == nullptr)
         throw "ERROR: Unable to allocate a new Node";
     while (pHead->pNext) {
