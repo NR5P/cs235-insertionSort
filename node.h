@@ -116,7 +116,7 @@ Node <T>* insert(Node <T>* pCurrent, const T& t, bool after = false) throw (cons
       throw "ERROR: Unable to allocate a new Node";
 
    }
-
+   return NULL;
 }
 
 template<typename T>
