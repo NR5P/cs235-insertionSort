@@ -148,6 +148,22 @@ Node<T> *insertSorted(Node<T> *pHead, const T &t)
     }
 }
 
+template<typename T>
+std::ostream &operator<<(std::ostream &out, const Node<T> *pHead)
+{
+    if (pHead == nullptr)
+        return out;
+
+    // display data
+    cout << pHead->data;
+
+    // if there is something after us, display it
+    if (pHead->pNext)
+        return out << ", " << pHead->pNext;
+    else
+        return out;    
+}
+
 
 #endif
 
