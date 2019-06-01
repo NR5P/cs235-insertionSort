@@ -73,7 +73,7 @@ Node<T>* remove(Node<T> * pRemove)
 }
 
 template <class T>
-Node <T>* insert(Node <T>* pCurrent, const T& t, bool after = false) throw (const char*)
+Node <T>* insert(Node <T> * pCurrent, const T & t, bool after = false) throw (const char*)
 {
    try
    {
@@ -88,27 +88,28 @@ Node <T>* insert(Node <T>* pCurrent, const T& t, bool after = false) throw (cons
 
       }
 
-      // Adds to head
-      if (NULL != pCurrent && !after)
+      // Adds to before
+      if (!after)
       {
          pNew->pNext = pCurrent;
+         pNew->pPrev = pCurrent->pPrev;
          if (pNew->pNext)
             pNew->pNext->pPrev = pNew;
          pCurrent = pNew;
          return pCurrent;
       }
 
-
-      // Adds to back
-      if (NULL != pCurrent && after)
+      //adds after
+      pNew->pNext = pCurrent->pNext;
+      pNew->pPrev = pCurrent;
+      pCurrent->pNext = pNew;
+      if (pNew->pNext)
       {
-         pNew->pNext = pCurrent->pNext;
-         pNew->pPrev = pCurrent;
-         pCurrent->pNext = pNew;
-         if (pNew->pNext)
-            pNew->pNext->pPrev = pNew;
-         return pNew;
-      }
+         pCurrent->pPrev->pNext = pNew;
+      }         
+
+      pCurrent->pPrev = pNew;
+      return pNew;
    }
    catch (const char* error)
    {
