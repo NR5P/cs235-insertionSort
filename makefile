@@ -1,11 +1,14 @@
 ###############################################################
 # Program:
 #     Assignment 06, NODE
-#     Brother XXXXX, CS235
+#     Brother JonesL, CS235
 # Author:
-#     <your name here>
+#     Dan Worwood, Dallen Cluff, Nathan Rigg, Griffin Pope
 # Summary:
-#     <put a description here>
+#     implementation of linked lists which is a data structure
+#     where elements can only be accessed in sequence.
+#     Also implemented an insertion sort which used linked
+#     list to sort number and letters from files via testBed
 ###############################################################
 
 ##############################################################
