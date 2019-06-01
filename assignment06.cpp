@@ -20,7 +20,6 @@
 #include "sortInsertion.h" // your insertionSort() function
 using namespace std;
 
-
 // prototypes for our four test functions
 void testSimple();
 void testInsert();
@@ -33,11 +32,11 @@ void testRemove();
 // of these. The idea is to help you avoid too many compile errors at once.
 // I suggest first commenting out all of these tests, then try to use only
 // TEST1.  Then, when TEST1 works, try TEST2 and so on.
-#define TEST1   // for testSimple()
-#define TEST2   // for testInsert()
-#define TEST3   // for testLoop()
-#define TEST4   // for testInteractive()
-#define TEST5   // for testRemove()
+#define TEST1 // for testSimple()
+#define TEST2 // for testInsert()
+#define TEST3 // for testLoop()
+#define TEST4 // for testInteractive()
+#define TEST5 // for testRemove()
 
 /**********************************************************************
  * MAIN
@@ -57,34 +56,34 @@ int main()
    // select
    char choice;
    cout << "> ";
-   cin  >> choice;
+   cin >> choice;
    switch (choice)
    {
-      case 'a':
-         testInsertionSort();
-         break;
-      case '1':
-         testSimple();
-         cout << "Test 1 complete\n";
-         break;
-      case '2':
-         testInsert();
-         cout << "Test 2 complete\n";
-         break;
-      case '3':
-         testLoop();
-         cout << "Test 3 complete\n";
-         break;
-      case '4':
-         testInteractive();
-         cout << "Test 4 complete\n";
-         break;
-      case '5':
-         testRemove();
-         cout << "Test 5 complete\n";
-         break;
-      default:
-         cout << "Unrecognized command, exiting...\n";
+   case 'a':
+      testInsertionSort();
+      break;
+   case '1':
+      testSimple();
+      cout << "Test 1 complete\n";
+      break;
+   case '2':
+      testInsert();
+      cout << "Test 2 complete\n";
+      break;
+   case '3':
+      testLoop();
+      cout << "Test 3 complete\n";
+      break;
+   case '4':
+      testInteractive();
+      cout << "Test 4 complete\n";
+      break;
+   case '5':
+      testRemove();
+      cout << "Test 5 complete\n";
+      break;
+   default:
+      cout << "Unrecognized command, exiting...\n";
    }
 
    return 0;
@@ -101,60 +100,60 @@ void testSimple()
    {
       cout.setf(ios::fixed | ios::showpoint);
       cout.precision(1);
-   
+
       // Test 1.a: a bool linked list with default constructor
       cout << "Create a bool linked list\n";
-      Node <bool> * n1 = new Node <bool> (true);
-      n1->pNext = new Node <bool> (false);
+      Node<bool> *n1 = new Node<bool>(true);
+      n1->pNext = new Node<bool>(false);
       n1->pNext->pPrev = n1;
-      cout << "\tn1->data:  " << (n1->data ? "true" : "false")    << endl;
+      cout << "\tn1->data:  " << (n1->data ? "true" : "false") << endl;
       cout << "\tn1->pNext: " << (n1->pNext ? "address" : "NULL") << endl;
       cout << "\tn1->pPrev: " << (n1->pPrev ? "address" : "NULL") << endl;
       cout << "\tn1->pNext->data:  "
-           << (n1->pNext->data ? "true" : "false")     << endl;
+           << (n1->pNext->data ? "true" : "false") << endl;
       cout << "\tn1->pNext->pNext: "
-           << (n1->pNext->pNext ?  "address" : "NULL") << endl;
+           << (n1->pNext->pNext ? "address" : "NULL") << endl;
       cout << "\tn1->pNext->pPrev: "
-           << (n1->pNext->pPrev ?  "address" : "NULL") << endl;
+           << (n1->pNext->pPrev ? "address" : "NULL") << endl;
       freeData(n1);
-   
+
       // Test 1.b: double linked list and add one element
       cout << "Create a double linked list and add two elements: 1.1 2.2\n";
-      Node <double> * n2 = new Node <double> (1.1);
-      n2->pNext = new Node <double> (2.2);
+      Node<double> *n2 = new Node<double>(1.1);
+      n2->pNext = new Node<double>(2.2);
       n2->pNext->pPrev = n2;
-      cout << "\tn2->data:  " << n2->data                         << endl;
+      cout << "\tn2->data:  " << n2->data << endl;
       cout << "\tn2->pNext: " << (n2->pNext ? "address" : "NULL") << endl;
       cout << "\tn2->pPrev: " << (n2->pPrev ? "address" : "NULL") << endl;
       cout << "\tn2->pNext->data:  "
-           << n2->pNext->data                          << endl;
+           << n2->pNext->data << endl;
       cout << "\tn2->pNext->pNext: "
-           << (n2->pNext->pNext ?  "address" : "NULL") << endl;
+           << (n2->pNext->pNext ? "address" : "NULL") << endl;
       cout << "\tn2->pNext->pPrev: "
-           << (n2->pNext->pPrev ?  "address" : "NULL") << endl;
-   
+           << (n2->pNext->pPrev ? "address" : "NULL") << endl;
+
       // Test 1.c: copy the double List
       cout << "Copy the double linked list\n";
-      Node <double> * n3 = copy(n2);
+      Node<double> *n3 = copy(n2);
       freeData(n2);
-      cout << "\tn3->data:  " << n3->data                         << endl;
+      cout << "\tn3->data:  " << n3->data << endl;
       cout << "\tn3->pNext: " << (n3->pNext ? "address" : "NULL") << endl;
       cout << "\tn3->pPrev: " << (n3->pPrev ? "address" : "NULL") << endl;
       cout << "\tn3->pNext->data:  "
-           << n3->pNext->data                          << endl;
+           << n3->pNext->data << endl;
       cout << "\tn3->pNext->pNext: "
-           << (n3->pNext->pNext ?  "address" : "NULL") << endl;
+           << (n3->pNext->pNext ? "address" : "NULL") << endl;
       cout << "\tn3->pNext->pPrev: "
-           << (n3->pNext->pPrev ?  "address" : "NULL") << endl;
+           << (n3->pNext->pPrev ? "address" : "NULL") << endl;
 
       // Test 1.d: free up the remaining linked lists
       freeData(n3);
       cout << "Destroying the second and third linked list\n";
    }
-   catch (const char * error)
+   catch (const char *error)
    {
       cout << error << endl;
-   }   
+   }
 #endif //TEST1
 }
 
@@ -170,9 +169,9 @@ void testInsert()
    {
       // create a list: { 20 }
       cout << "Create an integer linked list and put the number 10 on top\n";
-      Node <int> * n = NULL;
-      n = insert(n, 20);  // assign a new head to n
-      cout << "\tn->data:  " << n->data                         << endl;
+      Node<int> *n = NULL;
+      n = insert(n, 20); // assign a new head to n
+      cout << "\tn->data:  " << n->data << endl;
       cout << "\tn->pNext: " << (n->pNext ? "address" : "NULL") << endl;
       cout << "\tn->pPrev: " << (n->pPrev ? "address" : "NULL") << endl;
 
@@ -189,10 +188,10 @@ void testInsert()
 
       // add 25: { 10, 20, 25 }
       cout << "Add 25 to the back\n";
-      insert(n->pNext, 25, true  /* after */);
+      insert(n->pNext, 25, true /* after */);
       cout << "\t{ " << n->data
-           << ", "<< n->pNext->data
-           << ", "<< n->pNext->pNext->data
+           << ", " << n->pNext->data
+           << ", " << n->pNext->pNext->data
            << " }\n";
       if (n->pNext->pPrev != n)
          cout << "ERROR: element 20 does not point back to 10\n";
@@ -205,9 +204,9 @@ void testInsert()
       cout << "Add 15 to the middle\n";
       insert(n->pNext, 15, false /* after */);
       cout << "\t{ " << n->data
-           << ", "<< n->pNext->data
-           << ", "<< n->pNext->pNext->data
-           << ", "<< n->pNext->pNext->pNext->data
+           << ", " << n->pNext->data
+           << ", " << n->pNext->pNext->data
+           << ", " << n->pNext->pNext->pNext->data
            << " }\n";
       if (n->pNext->pNext->pNext->pNext != NULL)
          cout << "ERROR: the list does not have a NULL\n";
@@ -222,10 +221,10 @@ void testInsert()
       cout << "Add 5 to the head\n";
       n = insert(n, 5); // assign a new head to n
       cout << "\t{ " << n->data
-           << ", "<< n->pNext->data
-           << ", "<< n->pNext->pNext->data
-           << ", "<< n->pNext->pNext->pNext->data
-           << ", "<< n->pNext->pNext->pNext->pNext->data
+           << ", " << n->pNext->data
+           << ", " << n->pNext->pNext->data
+           << ", " << n->pNext->pNext->pNext->data
+           << ", " << n->pNext->pNext->pNext->pNext->data
            << " }\n";
       if (n->pPrev != NULL)
          cout << "ERROR: the list does not have a NULL at the beginning\n";
@@ -235,15 +234,15 @@ void testInsert()
          cout << "ERROR: element 15 does not point back to 10\n";
       if (n->pNext->pNext->pNext->pPrev != n->pNext->pNext)
          cout << "ERROR: element 20 does not point back to 15\n";
-   
+
       // free up the list
       freeData(n);
    }
-   catch (const char * error)
+   catch (const char *error)
    {
       cout << error << endl;
-   }   
-#endif // TEST2   
+   }
+#endif // TEST2
 }
 
 /*******************************************
@@ -258,9 +257,9 @@ void testLoop()
    {
       // create
       cout << "Create a char linked list: { a, b, c, d, e, f }\n";
-      Node <char> * n = NULL;
+      Node<char> *n = NULL;
 
-      n = insert(n, 'c', true);            // { c } 
+      n = insert(n, 'c', true);            // { c }
       insert(n, 'd', true);                // { c, d }
       insert(n->pNext, 'f', true);         // { c, d, f }
       n = insert(n, 'b');                  // { b, c, d, f }
@@ -279,21 +278,21 @@ void testLoop()
       // fill the list again
       cout << "Fill the list now with: { Z, Y, X, W, V, U }\n";
 
-      n = insert(n, 'Y', true);              // { Y }
-      n = insert(n, 'Z', false);             // { Z, Y }
-      insert(n->pNext, 'V', true);           // { Z, Y, V }
-      insert(n->pNext->pNext, 'U', true);    // { Z, Y, V, U }
-      insert(n->pNext->pNext, 'X');          // { Z, Y, X, V, U }
-      insert(n->pNext->pNext, 'W', true);    // { Z, Y, X, W, V, U }
+      n = insert(n, 'Y', true);           // { Y }
+      n = insert(n, 'Z', false);          // { Z, Y }
+      insert(n->pNext, 'V', true);        // { Z, Y, V }
+      insert(n->pNext->pNext, 'U', true); // { Z, Y, V, U }
+      insert(n->pNext->pNext, 'X');       // { Z, Y, X, V, U }
+      insert(n->pNext->pNext, 'W', true); // { Z, Y, X, W, V, U }
 
       cout << "\t{ " << n << " }\n";
 
       // copy the list
-      Node <char> * nCopy = copy(n);
+      Node<char> *nCopy = copy(n);
       cout << "Copy of the list:\n";
       cout << "\t{ " << nCopy << " }\n";
       freeData(nCopy);
-   
+
       // empty the list
       cout << "Empty the list\n";
       freeData(n);
@@ -301,7 +300,7 @@ void testLoop()
            << (n == NULL ? "" : "not ")
            << "empty\n";
    }
-   catch (const char * error)
+   catch (const char *error)
    {
       cout << error << endl;
    }
@@ -318,7 +317,7 @@ void testInteractive()
 #ifdef TEST4
    // create
    cout << "Create a string linked list\n";
-   Node <string> * n = NULL;
+   Node<string> *n = NULL;
 
    // instructions
    cout << "Instructions:\n"
@@ -327,11 +326,11 @@ void testInteractive()
         << "\t*        clear the list\n"
         << "\t!        quit\n";
 
-   char command;         // prompt user input for a command
-   int slot;             // prompt for a slot to insert into the linked-list
-   string text;          // prompt for text to insert or find
-   Node <string> * p;    // loop variable through the list
-   int i;                // loop variable through the slots
+   char command;    // prompt user input for a command
+   int slot;        // prompt for a slot to insert into the linked-list
+   string text;     // prompt for text to insert or find
+   Node<string> *p; // loop variable through the list
+   int i;           // loop variable through the slots
 
    do
    {
@@ -342,58 +341,57 @@ void testInteractive()
          cin.ignore(256, '\n');
       }
       cout << "{ " << n << " } > ";
-      cin  >> command;
+      cin >> command;
 
       try
       {
          switch (command)
          {
-            case '+':
-               // prompt
-               cin >> text >> slot;
+         case '+':
+            // prompt
+            cin >> text >> slot;
 
-               // empty list or head of the list case
-               if (slot == 0 || n == NULL)
-                  n = insert(n, text);
-               else
-               // otherwise find the slot
-               {
-                  for (i = 1,      p = n;
-                       i < slot && p->pNext;
-                       i++,        p = p->pNext)
-                     ;
-               
-                  insert(p, text, true);
-               }
-               break;
-            case '?':
-               // prompt
-               cin >> text;
+            // empty list or head of the list case
+            if (slot == 0 || n == NULL)
+               n = insert(n, text);
+            else
+            // otherwise find the slot
+            {
+               for (i = 1, p = n;
+                    i < slot && p->pNext;
+                    i++, p = p->pNext)
+                  ;
 
-               // find the node
-               p = find(n, text);
+               insert(p, text, true);
+            }
+            break;
+         case '?':
+            // prompt
+            cin >> text;
 
-               // display the results
-               cout << "\tThe text was "
-                    << (p == NULL ? "not " : "")
-                    << "found\n";
-               break;
-            case '*': // delete if we are asked to
-            case '!': // delete if we are to quit
-               // delete everything
-               freeData(n);
-               break;
-            default:
-               cout << "Unknown command\n";
-               cin.ignore(256, '\n');
-         }      
+            // find the node
+            p = find(n, text);
+
+            // display the results
+            cout << "\tThe text was "
+                 << (p == NULL ? "not " : "")
+                 << "found\n";
+            break;
+         case '*': // delete if we are asked to
+         case '!': // delete if we are to quit
+            // delete everything
+            freeData(n);
+            break;
+         default:
+            cout << "Unknown command\n";
+            cin.ignore(256, '\n');
+         }
       }
-      catch (const char * e)
+      catch (const char *e)
       {
          cout << '\t' << e << endl;
       }
-   }
-   while (command != '!');
+   } while (command != '!');
 #endif // TEST4
 }
 
@@ -407,7 +405,7 @@ void testRemove()
    try
    {
       // fill the array
-      Node <string> * p = new Node <string> (string("Dog"));
+      Node<string> *p = new Node<string>(string("Dog"));
       p = insert(p, string("Cat"));
       p = insert(p, string("Bat"));
       p = insert(p, string("Cow"));
@@ -440,21 +438,18 @@ void testRemove()
       do
       {
          cout << "\tRemoving " << p->data << endl;
-      }
-      while (p = remove(p));
+      } while (p = remove(p));
       cout << "The list is empty\n";
-         
-
    }
-   catch (const char * e)
+   catch (const char *e)
    {
       cout << '\t' << e << endl;
    }
 #endif // TEST5
 }
 
-#define NUM_COLUMNS   8
-#define INDENT        2
+#define NUM_COLUMNS 8
+#define INDENT 2
 #define WIDTH_COLUMN ((80 - INDENT) / NUM_COLUMNS)
 
 /***********************************************
@@ -492,8 +487,8 @@ void testInsertionSort()
    // first, sort an array of floats
    //
 
-   float array1[] = { 3.6, 8.1, 4.5, 5.4, 7.2, 1.8, 6.3, 2.7, 0.9, 9.0 };
-   int   num1 = sizeof(array1) / sizeof(array1[0]);
+   float array1[] = {3.6, 8.1, 4.5, 5.4, 7.2, 1.8, 6.3, 2.7, 0.9, 9.0};
+   int num1 = sizeof(array1) / sizeof(array1[0]);
    cout << "An array of " << num1 << " numbers\n";
 
    // display unsorted
@@ -514,8 +509,9 @@ void testInsertionSort()
    //
 
    string array2[100];
-   int    num2 = sizeof(array2) / sizeof(array2[0]);
-   ifstream fin("/home/cs235/week06/words.txt");
+   int num2 = sizeof(array2) / sizeof(array2[0]);
+   //ifstream fin("/home/cs235/week06/words.txt");
+   ifstream fin("words.txt");
    assert(!fin.fail());
    for (int i = 0; i < num2; i++)
    {
@@ -536,4 +532,3 @@ void testInsertionSort()
    cout << "Sorted:\n";
    display(array2, sizeof(array2) / sizeof(array2[0]));
 }
-

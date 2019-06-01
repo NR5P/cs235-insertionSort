@@ -25,29 +25,25 @@ void sortInsertion(T array[], int num)
   {
     return;
   }
-  
-  Node <T> * pHead = new Node <T> (array[0]);
-  
-  // Loop to go through all elements inside the array.
-  for (int i = 0;i <= num; i++)
+
+  Node<T> *pHead = new Node<T>(array[0]);
+
+  // Loop to go through all elements inside the array, we can skip the first one
+  // because we already made it the head.
+  for (int i = 1; i < num; i++)
   {
-   Node <T> *pTemp = pHead;
-    
+    T data = array[i];
+    Node<T> *pNewNode = insertSorted(pHead, data);
   }
 
   // Loop to copy the elements from the linked-list back into the input array.
   for (int i = 0; i < num; i++)
   {
     //Set each array element starting with element 0 equal to the data stored in pHead.
-    array[i] = pHead -> data;
-    
+    array[i] = pHead->data;
+
     pHead = remove(pHead);
   }
-  
-  
-
-  
 }
 
 #endif // INSERTION_SORT_H
-
