@@ -97,6 +97,18 @@ Node<T> *insert(Node<T> *pCurrent, const T &t, bool after = false)
     return pNewNode;
 }
 
+template<typename T>
+Node<T> *find(Node<T> *pHead, const T &t)
+{
+    // loop through the linked lists
+    for (Node<T> *p = pHead; p != nullptr; p = p->pNext) {
+        if (t == p->data) {
+            return p;
+        }
+    }
+
+    return nullptr;
+}
 
 
 template<typename T>
@@ -111,3 +123,23 @@ newNode->next = NULL;
 return newNode;
 }
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
