@@ -149,17 +149,6 @@ Node<T> *insertSorted(Node<T> *pHead, const T &t)
 }
 
 
-template<typename T>
-Node<T> *getNode(T &data)
-{
-// allocating space
-Node* newNode = new Node();
-
-// inserting the required data
-newNode->data = data;
-newNode->next = NULL;
-return newNode;
-}
 #endif
 
 
