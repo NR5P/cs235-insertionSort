@@ -59,6 +59,43 @@ Node<T> *remove(Node<T> *pRemove)
     return pReturn;
 }
 
+template<typename T>
+Node<T> *insert(Node<T> *pCurrent, const T &t, bool after = false)
+{
+    try {
+        Node<T> *pNewNode = new Node(pHead -> data);
+    } catch (std::bad_alloc) {
+        throw "ERROR: Unable to allocate a new Node";
+    }
+
+    if (pCurrent->pPrev && !after) {
+        // make new nodes previous the insert before nodes previous
+        pNewNode->pPrev = pCurrent->pPrev;
+
+        // make the insert before nodes previous THIS node
+        pCurrent->pPrev = pNewNode;
+
+        // make the node befores next point to THIS node
+        pCurrent->pPrev->pNext = pNewNode;
+
+        // make THIS point to the next node
+        pNewNode->pNext = pCurrent;
+    } else if (pCurrent->pNext && after) {
+        // make new nodes previous the insert before nodes previous
+        pNewNode->pNext = pCurrent->pNext;
+
+        // make the insert before nodes previous THIS node
+        pCurrent->pNext = pNewNode;
+
+        // make the node befores next point to THIS node
+        pCurrent->pNext->pPrev = pNewNode;
+
+        // make THIS point to the next node
+        pNewNode->pPrev = pCurrent;
+    }
+
+    return pNewNode;
+}
 
 
 
