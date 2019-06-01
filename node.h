@@ -6,181 +6,193 @@
 template<typename T>
 struct Node
 {
-    T data;
-    Node *pNext;
-    Node *pPrev;
+   T data;
+   Node* pNext;
+   Node* pPrev;
 
-    // default constructor
-    Node() : pNext(nullptr), pPrev(nullptr) {}
+   // default constructor
+   Node() : pNext(nullptr), pPrev(nullptr) {}
 
-    // non default constructor
-    Node(T &t) : data(t), pNext(nullptr), pPrev(nullptr) {} 
+   // non default constructor
+   Node(T& t) : data(t), pNext(nullptr), pPrev(nullptr) {}
 
-    Node(const T &t) : data(t), pNext(nullptr), pPrev(nullptr) {} 
+   Node(const T& t) : data(t), pNext(nullptr), pPrev(nullptr) {}
 };
 
 template<typename T>
-Node<T> *copy(const Node<T> *pHead)
+Node<T>* copy(const Node<T>* pHead)
 {
-    if (pHead == nullptr)
-        return nullptr;
-    
-    int howManyTimesMoved = 0;
+   if (pHead == nullptr)
+      return nullptr;
 
-    Node<T> *pNewNode = new (std::nothrow) Node<T>(pHead->data);
-    if (pNewNode == nullptr)
-        throw "ERROR: Unable to allocate a new Node";
-    while (pHead->pNext != nullptr) {
-        howManyTimesMoved++;
-        pNewNode->pNext = new Node<T>(pHead->pNext->data);
-        pNewNode->pNext->pPrev = pNewNode;
+   int howManyTimesMoved = 0;
 
-        // go to the next one
-        pNewNode = pNewNode->pNext;
-        pHead = pHead->pNext;
-    }
-    for (int i = 0; i < howManyTimesMoved; i++)
-        pNewNode = pNewNode->pPrev;
+   Node<T> * pNewNode = new (std::nothrow) Node<T>(pHead->data);
+   if (pNewNode == nullptr)
+      throw "ERROR: Unable to allocate a new Node";
+   while (pHead->pNext != nullptr) {
+      howManyTimesMoved++;
+      pNewNode->pNext = new Node<T>(pHead->pNext->data);
+      pNewNode->pNext->pPrev = pNewNode;
 
-    return pNewNode;
+      // go to the next one
+      pNewNode = pNewNode->pNext;
+      pHead = pHead->pNext;
+   }
+   for (int i = 0; i < howManyTimesMoved; i++)
+      pNewNode = pNewNode->pPrev;
+
+   return pNewNode;
 }
 
 template<typename T>
-Node<T> *remove(Node<T> *pRemove)
+Node<T>* remove(Node<T> * pRemove)
 {
-    if (pRemove == nullptr)
-        return nullptr;
+   if (pRemove == nullptr)
+      return nullptr;
 
-    Node<T> *pReturn = new (std::nothrow) Node<T>();
-    if (pReturn == nullptr)
-        throw "ERROR: Unable to allocate a new Node";
+   Node<T> * pReturn = new (std::nothrow) Node<T>();
+   if (pReturn == nullptr)
+      throw "ERROR: Unable to allocate a new Node";
 
-    // update the pointers in pRemove->pPrev and pRemove->pNext
-    if (pRemove->pNext) {
-        pRemove->pNext->pPrev = pRemove->pPrev;
-    }
+   // update the pointers in pRemove->pPrev and pRemove->pNext
+   if (pRemove->pNext) {
+      pRemove->pNext->pPrev = pRemove->pPrev;
+   }
 
-    if (pRemove->pPrev) {
-        pRemove->pPrev->pNext = pRemove->pNext;
-    }
+   if (pRemove->pPrev) {
+      pRemove->pPrev->pNext = pRemove->pNext;
+   }
 
-    // determine which node we will return
-    pReturn = pRemove->pPrev ? pRemove->pPrev : pRemove->pNext;
+   // determine which node we will return
+   pReturn = pRemove->pPrev ? pRemove->pPrev : pRemove->pNext;
 
-    // now delete the node and return
-    delete pRemove;
-    return pReturn;
+   // now delete the node and return
+   delete pRemove;
+   return pReturn;
+}
+
+template <class T>
+Node <T>* insert(Node <T>* pCurrent, const T& t, bool after = false) throw (const char*)
+{
+   try
+   {
+      Node<T>* pNew = new Node<T>(t);
+
+
+      // If it's empty
+      if (NULL == pCurrent)
+      {
+         pCurrent = pNew;
+         return pNew;
+
+      }
+
+      // Adds to head
+      if (NULL != pCurrent && after)
+      {
+         pNew->pNext = pCurrent;
+         if (pNew->pNext)
+            pNew->pNext->pPrev = pNew;
+         pCurrent = pNew;
+         return pCurrent;
+      }
+
+
+      // Adds to back
+      if (NULL != pCurrent && !after)
+      {
+         pNew->pNext = pCurrent->pNext;
+         pNew->pPrev = pCurrent;
+         pCurrent->pNext = pNew;
+         if (pNew->pNext)
+            pNew->pNext->pPrev = pNew;
+         return pNew;
+      }
+   }
+   catch (const char* error)
+   {
+
+      throw "ERROR: Unable to allocate a new Node";
+
+   }
+
 }
 
 template<typename T>
-Node<T> *insert(Node<T> *pCurrent, const T &t, bool after = false)
+Node<T>* find(Node<T> * pHead, const T & t)
 {
-    Node<T> *pNewNode = new (std::nothrow) Node<T>(pCurrent->data);
-    if (pNewNode == nullptr)
-        throw "ERROR: Unable to allocate a new Node";
+   // loop through the linked lists
+   for (Node<T>* p = pHead; p != nullptr; p = p->pNext) {
+      if (t == p->data) {
+         return p;
+      }
+   }
 
-    if (pCurrent->pPrev && !after) {
-        // make new nodes previous the insert before nodes previous
-        pNewNode->pPrev = pCurrent->pPrev;
-
-        // make the insert before nodes previous THIS node
-        pCurrent->pPrev = pNewNode;
-
-        // make the node befores next point to THIS node
-        pCurrent->pPrev->pNext = pNewNode;
-
-        // make THIS point to the next node
-        pNewNode->pNext = pCurrent;
-    } else if (pCurrent->pNext && after) {
-        // make new nodes previous the insert before nodes previous
-        pNewNode->pNext = pCurrent->pNext;
-
-        // make the insert before nodes previous THIS node
-        pCurrent->pNext = pNewNode;
-
-        // make the node befores next point to THIS node
-        pCurrent->pNext->pPrev = pNewNode;
-
-        // make THIS point to the next node
-        pNewNode->pPrev = pCurrent;
-    }
-
-    return pNewNode;
+   return nullptr;
 }
 
 template<typename T>
-Node<T> *find(Node<T> *pHead, const T &t)
+Node<T>* findSorted(Node<T> * pHead, const T & t)
 {
-    // loop through the linked lists
-    for (Node<T> *p = pHead; p != nullptr; p = p->pNext) {
-        if (t == p->data) {
-            return p;
-        }
-    }
+   //trivial case
+   if (nullptr == pHead || t < pHead->data)
+      return nullptr;
 
-    return nullptr;
+   // search for node
+   while (pHead->data < t) {
+      pHead = pHead->pNext;
+   }
+
+   return pHead;
 }
 
 template<typename T>
-Node<T> *findSorted(Node<T> *pHead, const T &t)
+Node<T>* insertSorted(Node<T> * &pHead, const T & t)
 {
-    //trivial case
-    if (nullptr == pHead || t < pHead->data)
-        return nullptr;
+   Node<T>* pNew = new (std::nothrow) Node<T>(t);
+   if (pNew == nullptr)
+      throw "ERROR: Unable to allocate a new Node";
 
-    // search for node
-    while (pHead->data < t) {
-        pHead = pHead->pNext;
-    }
+   // find location in linked list immediately before
+   // new node to be inserted
+   Node<T> * pFind = findSorted(pHead, t);
 
-    return pHead;
+   // insert the new node to the head of the list
+   if (pFind == nullptr) {
+      insert(pHead, pNew);
+   }
+   else {
+      // otherwide insert the new node after the found one
+      insert(pFind, pNew, true);
+   }
 }
 
 template<typename T>
-Node<T> *insertSorted(Node<T> *&pHead, const T &t)
+std::ostream& operator<<(std::ostream & out, const Node<T> * pHead)
 {
-    Node<T> *pNew = new (std::nothrow) Node<T>(t);
-    if (pNew == nullptr)
-        throw "ERROR: Unable to allocate a new Node";
+   if (pHead == nullptr)
+      return out;
 
-    // find location in linked list immediately before
-    // new node to be inserted
-    Node<T> *pFind = findSorted(pHead, t);
+   // display data
+   std::cout << pHead->data;
 
-    // insert the new node to the head of the list
-    if (pFind == nullptr) {
-        insert(pHead, pNew);
-    } else {
-        // otherwide insert the new node after the found one
-        insert(pFind, pNew, true);
-    }
+   // if there is something after us, display it
+   if (pHead->pNext)
+      return out << ", " << pHead->pNext;
+   else
+      return out;
 }
 
 template<typename T>
-std::ostream &operator<<(std::ostream &out, const Node<T> *pHead)
+void freeData(Node<T> * &pHead)
 {
-    if (pHead == nullptr)
-        return out;
-
-    // display data
-    std::cout << pHead->data;
-
-    // if there is something after us, display it
-    if (pHead->pNext)
-        return out << ", " << pHead->pNext;
-    else
-        return out;    
-}
-
-template<typename T>
-void freeData(Node<T> *&pHead)
-{
-    Node <T> *pNext;
-    for (Node<T> *p = pHead; p; p = pNext) {
-        pNext = p->pNext;
-        delete p;
-    }
-    pHead = nullptr;
+   Node <T>* pNext;
+   for (Node<T>* p = pHead; p; p = pNext) {
+      pNext = p->pNext;
+      delete p;
+   }
+   pHead = nullptr;
 }
 
 #endif
