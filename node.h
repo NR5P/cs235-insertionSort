@@ -73,7 +73,7 @@ Node<T>* remove(Node<T> * pRemove)
 }
 
 template <class T>
-Node <T>* insert(Node <T> * pCurrent, const T & t, bool after = false) throw (const char*)
+Node <T>* insert(Node <T> * pCurrent, const T & t, bool after = false)
 {
    try
    {
